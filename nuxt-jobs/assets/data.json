@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Front-End Developer",
+        "team": "Engineering",
+        "contract": "Full-time",
+        "location": "Remote"
+    },
+    {
+        "id": 2,
+        "title": "Back-End Developer",
+        "team": "Engineering",
+        "contract": "Full-time",
+        "location": "Remote"
+    },
+    {
+        "id": 3,
+        "title": "Product Designer",
+        "team": "Product",
+        "contract": "Full-time",
+        "location": "Remote"
+    }
+]
