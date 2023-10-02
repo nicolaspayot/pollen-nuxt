@@ -3,22 +3,22 @@
     <form class="bg-white dark:bg-slate-900 drop-shadow-md w-full max-w-md flex flex-col rounded-md p-8" novalidate>
         <div class="flex flex-col mb-5">
             <label class="mb-1 text-sm font-medium dark:text-white">Title</label>
-            <input class="rounded-md border-gray-200 border-2 p-2 outline-none" type="text" placeholder="Front-End Developer" />
+            <input v-model="job.title" class="rounded-md border-gray-200 border-2 p-2 outline-none" type="text" placeholder="Front-End Developer" />
         </div>
         <div class="flex flex-col mb-5">
             <label class="mb-1 text-sm font-medium dark:text-white">Team</label>
-            <input class="rounded-md border-gray-200 border-2 p-2 outline-none" type="text" placeholder="Engineering" />
+            <input v-model="job.team" class="rounded-md border-gray-200 border-2 p-2 outline-none" type="text" placeholder="Engineering" />
         </div>
         <div class="flex flex-col mb-5">
             <label class="mb-1 text-sm font-medium dark:text-white">Contract</label>
-            <select class="rounded-md border-gray-200 border-2 p-2 outline-none">
+            <select v-model="job.contract" class="rounded-md border-gray-200 border-2 p-2 outline-none">
                 <option>Full-time</option>
                 <option>Part-time</option>
             </select>
         </div>
         <div class="flex flex-col mb-5">
             <label class="mb-1 text-sm font-medium dark:text-white">Location</label>
-            <input class="rounded-md border-gray-200 border-2 p-2 outline-none" type="text" placeholder="Remote" />
+            <input v-model="job.location" class="rounded-md border-gray-200 border-2 p-2 outline-none" type="text" placeholder="Remote" />
         </div>
         <button
             type="submit"
@@ -31,7 +31,18 @@
 </template>
 
 <script setup lang="ts">
-    function onSubmit() {
+    import {Job} from '~/models/Job';
+
+    const job = ref<Job>({
+        id: -1,
+        title: '',
+        team: '',
+        contract: 'Full-time',
+        location: '',
+    });
+
+    async function onSubmit() {
+        await $fetch('/api/jobs', {method: 'POST', body: {job: job.value}});
         navigateTo('/');
     }
 </script>

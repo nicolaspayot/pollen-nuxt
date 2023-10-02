@@ -37,13 +37,15 @@
 
 <script setup lang="ts">
     import {Job} from '~/models/Job';
-    import data from '~/assets/data.json';
 
     const route = useRoute();
-    const selectedJob = data.find((job) => job.id === Number(route.params.jobId));
-    const jobModel = ref<Job>(selectedJob!);
+    const endpoint = `/api/jobs/${route.params.jobId}`;
 
-    function onSubmit() {
+    const {data: selectedJob} = await useFetch<Job>(endpoint);
+    const jobModel = ref<Job>(selectedJob.value!);
+
+    async function onSubmit() {
+        await $fetch(endpoint, {method: 'PUT', body: {job: jobModel.value}});
         navigateTo('/');
     }
 

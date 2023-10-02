@@ -5,4 +5,12 @@ export default defineNuxtConfig({
     },
     devtools: {enabled: true},
     modules: ['@nuxtjs/tailwindcss'],
+    nitro: {
+        storage: {
+            db: {
+                driver: 'fs',
+                base: './server/db',
+            },
+        },
+    },
 });

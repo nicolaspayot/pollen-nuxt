@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
     import {Job} from '~/models/Job';
-    import data from '~/assets/data.json';
 
-    const jobs = ref<Job[]>(data);
+    const {data: jobs} = await useFetch<Job[]>('/api/jobs');
 </script>
