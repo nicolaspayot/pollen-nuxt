@@ -41,7 +41,11 @@
     const route = useRoute();
     const endpoint = `/api/jobs/${route.params.jobId}`;
 
-    const {data: selectedJob} = await useFetch<Job>(endpoint);
+    const {data: selectedJob, error} = await useFetch<Job>(endpoint);
+    if (error.value) {
+        throw createError(error.value);
+    }
+
     const jobModel = ref<Job>(selectedJob.value!);
 
     async function onSubmit() {

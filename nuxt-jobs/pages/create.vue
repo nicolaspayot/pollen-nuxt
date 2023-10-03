@@ -20,6 +20,7 @@
             <label class="mb-1 text-sm font-medium dark:text-white">Location</label>
             <input v-model="job.location" class="rounded-md border-gray-200 border-2 p-2 outline-none" type="text" placeholder="Remote" />
         </div>
+        <p v-if="formInvalid" class="text-red-500 text-center font-bold mb-5">⚠️ Form is invalid</p>
         <button
             type="submit"
             class="inline-block px-6 py-3 bg-blue-700 text-white text-sm rounded-md shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -31,7 +32,10 @@
 </template>
 
 <script setup lang="ts">
+    import {FetchError} from 'ofetch';
     import {Job} from '~/models/Job';
+
+    const formInvalid = ref(false);
 
     const job = ref<Job>({
         id: -1,
@@ -42,7 +46,13 @@
     });
 
     async function onSubmit() {
-        await $fetch('/api/jobs', {method: 'POST', body: {job: job.value}});
-        navigateTo('/');
+        try {
+            await $fetch('/api/jobs', {method: 'POST', body: {job: job.value}});
+            navigateTo('/');
+        } catch (error) {
+            if ((error as FetchError).statusCode === 400) {
+                formInvalid.value = true;
+            }
+        }
     }
 </script>

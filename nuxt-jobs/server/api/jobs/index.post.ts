@@ -6,6 +6,10 @@ export default defineEventHandler(async (event) => {
 
     const {job: newJob} = await readBody(event);
 
+    if (!newJob.title || !newJob.team || !newJob.contract || !newJob.location) {
+        throw createError({statusCode: 400, message: 'Payload is incomplete'});
+    }
+
     const lastId = jobs[jobs.length - 1].id || 0;
     newJob.id = lastId + 1;
     jobs?.push(newJob);
