@@ -59,4 +59,8 @@
             return /^\d+$/.test(route.params.jobId as string);
         },
     });
+
+    useSeoMeta({
+        title: () => jobModel.value.title,
+    });
 </script>

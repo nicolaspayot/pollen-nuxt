@@ -23,4 +23,8 @@
     import {Job} from '~/models/Job';
 
     const {data: jobs} = await useFetch<Job[]>('/api/jobs');
+
+    useSeoMeta({
+        title: 'Welcome',
+    });
 </script>

@@ -55,4 +55,8 @@
             }
         }
     }
+
+    useSeoMeta({
+        title: 'Create a new job',
+    });
 </script>
