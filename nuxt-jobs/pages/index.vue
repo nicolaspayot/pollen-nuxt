@@ -20,9 +20,9 @@
 </template>
 
 <script setup lang="ts">
-    import {Job} from '~/models/Job';
+    const {jobs, getAllJobs} = useJobs();
 
-    const {data: jobs} = await useFetch<Job[]>('/api/jobs');
+    await getAllJobs();
 
     useSeoMeta({
         title: 'Welcome',

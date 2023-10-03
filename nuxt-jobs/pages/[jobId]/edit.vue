@@ -39,17 +39,15 @@
     import {Job} from '~/models/Job';
 
     const route = useRoute();
-    const endpoint = `/api/jobs/${route.params.jobId}`;
 
-    const {data: selectedJob, error} = await useFetch<Job>(endpoint);
-    if (error.value) {
-        throw createError(error.value);
-    }
+    const {getJob, updateJob} = useJobs();
 
-    const jobModel = ref<Job>(selectedJob.value!);
+    const selectedJob = await getJob(Number(route.params.jobId));
+
+    const jobModel = ref<Job>(selectedJob);
 
     async function onSubmit() {
-        await $fetch(endpoint, {method: 'PUT', body: {job: jobModel.value}});
+        await updateJob(jobModel.value);
         navigateTo('/');
     }
 

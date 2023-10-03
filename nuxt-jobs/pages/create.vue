@@ -35,6 +35,8 @@
     import {FetchError} from 'ofetch';
     import {Job} from '~/models/Job';
 
+    const {createJob} = useJobs();
+
     const formInvalid = ref(false);
 
     const job = ref<Job>({
@@ -47,7 +49,7 @@
 
     async function onSubmit() {
         try {
-            await $fetch('/api/jobs', {method: 'POST', body: {job: job.value}});
+            await createJob(job.value);
             navigateTo('/');
         } catch (error) {
             if ((error as FetchError).statusCode === 400) {
