@@ -37,10 +37,11 @@
 
 <script setup lang="ts">
     import {Job} from '~/models/Job';
+    import {useJobsStore} from '~/stores/jobs.store';
 
     const route = useRoute();
 
-    const {getJob, updateJob} = useJobs();
+    const {getJob, updateJob} = useJobsStore();
 
     const selectedJob = await getJob(Number(route.params.jobId));
 

@@ -20,7 +20,12 @@
 </template>
 
 <script setup lang="ts">
-    const {jobs, getAllJobs} = useJobs();
+    import {storeToRefs} from 'pinia';
+    import {useJobsStore} from '~/stores/jobs.store';
+
+    const jobsStore = useJobsStore();
+    const {jobs} = storeToRefs(jobsStore);
+    const {getAllJobs} = jobsStore;
 
     await getAllJobs();
 

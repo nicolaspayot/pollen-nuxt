@@ -34,8 +34,9 @@
 <script setup lang="ts">
     import {FetchError} from 'ofetch';
     import {Job} from '~/models/Job';
+    import {useJobsStore} from '~/stores/jobs.store';
 
-    const {createJob} = useJobs();
+    const {createJob} = useJobsStore();
 
     const formInvalid = ref(false);
 
